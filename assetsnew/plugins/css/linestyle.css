@@ -1,0 +1,59 @@
+ /* set the CSS */
+
+body { font: 12px Arial;}
+
+path1 { 
+    stroke: #F04ED6;
+    stroke-width: 2;
+    fill: none;
+}
+
+.axis path1,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+path2 { 
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+}
+
+.axis path2,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+path3 { 
+    stroke: #B91131;
+    stroke-width: 2;
+    fill: none;
+}
+
+.axis path3,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+path4 { 
+    stroke: #F04ED6;
+    stroke-width: 2;
+    fill: none;
+}
+
+.axis path4,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}

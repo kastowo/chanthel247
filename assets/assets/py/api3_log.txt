@@ -1,0 +1,416 @@
+ * Running on http://192.168.2.69:8181/
+Traceback (most recent call last):
+  File "/var/www/html/setopbox3/assets/py/api3.py", line 38, in <module>
+    app.run(host='192.168.2.69', port=8181, debug=True)
+  File "/usr/lib/python2.7/dist-packages/flask/app.py", line 772, in run
+    run_simple(host, port, self, **options)
+  File "/usr/lib/python2.7/dist-packages/werkzeug/serving.py", line 706, in run_simple
+    test_socket.bind((hostname, port))
+  File "/usr/lib/python2.7/socket.py", line 224, in meth
+    return getattr(self._sock,name)(*args)
+socket.error: [Errno 99] Cannot assign requested address
+ * Running on http://192.168.2.69:8282/
+Traceback (most recent call last):
+  File "/var/www/html/setopbox3/assets/py/api3.py", line 38, in <module>
+    app.run(host='192.168.2.69', port=8282, debug=True)
+  File "/usr/lib/python2.7/dist-packages/flask/app.py", line 772, in run
+    run_simple(host, port, self, **options)
+  File "/usr/lib/python2.7/dist-packages/werkzeug/serving.py", line 706, in run_simple
+    test_socket.bind((hostname, port))
+  File "/usr/lib/python2.7/socket.py", line 224, in meth
+    return getattr(self._sock,name)(*args)
+socket.error: [Errno 99] Cannot assign requested address
+ * Running on http://192.168.2.69:8282/
+Traceback (most recent call last):
+  File "/var/www/html/setopbox3/assets/py/api3.py", line 38, in <module>
+    app.run(host='192.168.2.69', port=8282, debug=True)
+  File "/usr/lib/python2.7/dist-packages/flask/app.py", line 772, in run
+    run_simple(host, port, self, **options)
+  File "/usr/lib/python2.7/dist-packages/werkzeug/serving.py", line 706, in run_simple
+    test_socket.bind((hostname, port))
+  File "/usr/lib/python2.7/socket.py", line 224, in meth
+    return getattr(self._sock,name)(*args)
+socket.error: [Errno 99] Cannot assign requested address
+Stopped0
+ * Running on http://192.168.2.69:8282/
+Traceback (most recent call last):
+  File "/var/www/html/setopbox3/assets/py/api3.py", line 38, in <module>
+    app.run(host='192.168.2.69', port=8282, debug=True)
+  File "/usr/lib/python2.7/dist-packages/flask/app.py", line 772, in run
+    run_simple(host, port, self, **options)
+  File "/usr/lib/python2.7/dist-packages/werkzeug/serving.py", line 706, in run_simple
+    test_socket.bind((hostname, port))
+  File "/usr/lib/python2.7/socket.py", line 224, in meth
+    return getattr(self._sock,name)(*args)
+socket.error: [Errno 99] Cannot assign requested address
+ * Running on http://127.0.0.1:5000/
+ * Restarting with reloader
+127.0.0.1 - - [07/Aug/2017 14:25:45] "GET / HTTP/1.1" 404 -
+127.0.0.1 - - [07/Aug/2017 14:25:45] "GET /favicon.ico HTTP/1.1" 404 -
+
+(OpenCV:1939): Gtk-WARNING **: cannot open display: 
+127.0.0.1 - - [07/Aug/2017 14:26:03] "GET /test/dika/123 HTTP/1.1" 200 -
+127.0.0.1 - - [07/Aug/2017 14:27:37] "GET /test/dika/123 HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/usr/lib/python2.7/SocketServer.py", line 295, in _handle_request_noblock
+    self.process_request(request, client_address)
+  File "/usr/lib/python2.7/SocketServer.py", line 321, in process_request
+    self.finish_request(request, client_address)
+  File "/usr/lib/python2.7/SocketServer.py", line 334, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python2.7/SocketServer.py", line 657, in __init__
+    self.finish()
+  File "/usr/lib/python2.7/SocketServer.py", line 716, in finish
+    self.wfile.close()
+  File "/usr/lib/python2.7/socket.py", line 279, in close
+    self.flush()
+  File "/usr/lib/python2.7/socket.py", line 303, in flush
+    self._sock.sendall(view[write_offset:write_offset+buffer_size])
+error: [Errno 32] Broken pipe
+127.0.0.1 - - [07/Aug/2017 14:27:38] "GET /test/dika/123 HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/usr/share/pyshared/flask/app.py", line 1836, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/share/pyshared/flask/app.py", line 1820, in wsgi_app
+    response = self.make_response(self.handle_exception(e))
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 273, in error_router
+    return original_handler(e)
+  File "/usr/share/pyshared/flask/app.py", line 1403, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 270, in error_router
+    return self.handle_error(e)
+  File "/usr/share/pyshared/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/share/pyshared/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 273, in error_router
+    return original_handler(e)
+  File "/usr/share/pyshared/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 270, in error_router
+    return self.handle_error(e)
+  File "/usr/share/pyshared/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/share/pyshared/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 480, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/usr/share/pyshared/flask/views.py", line 84, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 595, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/var/www/html/setopbox3/assets/py/api3.py", line 21, in get
+    x = subprocess.Popen(['/usr/bin/python', '/var/www/html/setopbox3/assets/py/train.py', nama], stdout=subprocess.PIPE).communicate()[0]
+  File "/usr/lib/python2.7/subprocess.py", line 710, in __init__
+    errread, errwrite)
+  File "/usr/lib/python2.7/subprocess.py", line 1231, in _execute_child
+    self.pid = os.fork()
+OSError: [Errno 12] Cannot allocate memory
+127.0.0.1 - - [07/Aug/2017 14:27:43] "GET /test/dika/123?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+127.0.0.1 - - [07/Aug/2017 14:27:43] "GET /test/dika/123?__debugger__=yes&cmd=resource&f=jquery.js HTTP/1.1" 200 -
+127.0.0.1 - - [07/Aug/2017 14:27:43] "GET /test/dika/123?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+127.0.0.1 - - [07/Aug/2017 14:27:47] "GET /test/dika/123?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+127.0.0.1 - - [07/Aug/2017 14:27:47] "GET /test/dika/123?__debugger__=yes&cmd=resource&f=source.png HTTP/1.1" 200 -
+127.0.0.1 - - [07/Aug/2017 14:27:48] "GET /test/dika/123?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+127.0.0.1 - - [07/Aug/2017 14:28:59] "GET /test/dika/123 HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/usr/share/pyshared/flask/app.py", line 1836, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/share/pyshared/flask/app.py", line 1820, in wsgi_app
+    response = self.make_response(self.handle_exception(e))
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 273, in error_router
+    return original_handler(e)
+  File "/usr/share/pyshared/flask/app.py", line 1403, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 270, in error_router
+    return self.handle_error(e)
+  File "/usr/share/pyshared/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/share/pyshared/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 273, in error_router
+    return original_handler(e)
+  File "/usr/share/pyshared/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 270, in error_router
+    return self.handle_error(e)
+  File "/usr/share/pyshared/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/share/pyshared/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 480, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/usr/share/pyshared/flask/views.py", line 84, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 595, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/var/www/html/setopbox3/assets/py/api3.py", line 21, in get
+    x = subprocess.Popen(['/usr/bin/python', '/var/www/html/setopbox3/assets/py/train.py', nama], stdout=subprocess.PIPE).communicate()[0]
+  File "/usr/lib/python2.7/subprocess.py", line 710, in __init__
+    errread, errwrite)
+  File "/usr/lib/python2.7/subprocess.py", line 1231, in _execute_child
+    self.pid = os.fork()
+OSError: [Errno 12] Cannot allocate memory
+127.0.0.1 - - [07/Aug/2017 14:29:03] "GET /test/dika/123?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+127.0.0.1 - - [07/Aug/2017 14:29:03] "GET /test/dika/123?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+127.0.0.1 - - [07/Aug/2017 14:29:03] "GET /test/dika/123?__debugger__=yes&cmd=resource&f=jquery.js HTTP/1.1" 200 -
+127.0.0.1 - - [07/Aug/2017 14:29:13] "GET /test/dika/123?__debugger__=yes&cmd=resource&f=source.png HTTP/1.1" 200 -
+127.0.0.1 - - [07/Aug/2017 14:29:13] "GET /test/dika/123?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+127.0.0.1 - - [07/Aug/2017 14:29:21] "GET /test/dika/123?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+127.0.0.1 - - [07/Aug/2017 14:29:34] "GET /test/dika/123 HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/usr/share/pyshared/flask/app.py", line 1836, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/share/pyshared/flask/app.py", line 1820, in wsgi_app
+    response = self.make_response(self.handle_exception(e))
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 273, in error_router
+    return original_handler(e)
+  File "/usr/share/pyshared/flask/app.py", line 1403, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 270, in error_router
+    return self.handle_error(e)
+  File "/usr/share/pyshared/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/share/pyshared/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 273, in error_router
+    return original_handler(e)
+  File "/usr/share/pyshared/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 270, in error_router
+    return self.handle_error(e)
+  File "/usr/share/pyshared/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/share/pyshared/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 480, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/usr/share/pyshared/flask/views.py", line 84, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 595, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/var/www/html/setopbox3/assets/py/api3.py", line 21, in get
+    x = subprocess.Popen(['/usr/bin/python', '/var/www/html/setopbox3/assets/py/train.py', nama], stdout=subprocess.PIPE).communicate()[0]
+  File "/usr/lib/python2.7/subprocess.py", line 710, in __init__
+    errread, errwrite)
+  File "/usr/lib/python2.7/subprocess.py", line 1231, in _execute_child
+    self.pid = os.fork()
+OSError: [Errno 12] Cannot allocate memory
+127.0.0.1 - - [07/Aug/2017 14:29:44] "GET /test/dika/123?__debugger__=yes&cmd=resource&f=jquery.js HTTP/1.1" 200 -
+127.0.0.1 - - [07/Aug/2017 14:29:44] "GET /test/dika/123?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+127.0.0.1 - - [07/Aug/2017 14:29:44] "GET /test/dika/123?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+127.0.0.1 - - [07/Aug/2017 14:29:54] "GET /test/dika/123?__debugger__=yes&cmd=resource&f=source.png HTTP/1.1" 200 -
+127.0.0.1 - - [07/Aug/2017 14:29:54] "GET /test/dika/123?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+127.0.0.1 - - [07/Aug/2017 14:30:01] "GET /test/dika/123?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+status 
+[94mThe program will save 20 samples. Move your head around to increase while it runs.[0m
+
+Saving training sample 1/20
+
+----------------------------------------
+Exception happened during processing of request from ('127.0.0.1', 35576)
+----------------------------------------
+ * Running on http://127.0.0.1:5000/
+ * Restarting with reloader
+127.0.0.1 - - [07/Aug/2017 18:30:16] "GET /test/dika/123 HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/usr/share/pyshared/flask/app.py", line 1836, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/share/pyshared/flask/app.py", line 1820, in wsgi_app
+    response = self.make_response(self.handle_exception(e))
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 273, in error_router
+    return original_handler(e)
+  File "/usr/share/pyshared/flask/app.py", line 1403, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 270, in error_router
+    return self.handle_error(e)
+  File "/usr/share/pyshared/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/share/pyshared/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 273, in error_router
+    return original_handler(e)
+  File "/usr/share/pyshared/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 270, in error_router
+    return self.handle_error(e)
+  File "/usr/share/pyshared/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/share/pyshared/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 480, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/usr/share/pyshared/flask/views.py", line 84, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 595, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/var/www/html/setopbox3/assets/py/api3.py", line 21, in get
+    x = subprocess.Popen(['/usr/bin/python', '/var/www/html/setopbox3/assets/py/train.py', nama], stdout=subprocess.PIPE).communicate()[0]
+  File "/usr/lib/python2.7/subprocess.py", line 791, in communicate
+    stdout = _eintr_retry_call(self.stdout.read)
+  File "/usr/lib/python2.7/subprocess.py", line 476, in _eintr_retry_call
+    return func(*args)
+MemoryError
+127.0.0.1 - - [07/Aug/2017 18:30:44] "GET /test/dika/123 HTTP/1.1" 200 -
+127.0.0.1 - - [07/Aug/2017 18:30:45] "GET /test/dika/123?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+127.0.0.1 - - [07/Aug/2017 18:30:45] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [07/Aug/2017 18:33:54] "GET /test/dika/123 HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/usr/lib/python2.7/SocketServer.py", line 295, in _handle_request_noblock
+    self.process_request(request, client_address)
+  File "/usr/lib/python2.7/SocketServer.py", line 321, in process_request
+    self.finish_request(request, client_address)
+  File "/usr/lib/python2.7/SocketServer.py", line 334, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python2.7/SocketServer.py", line 657, in __init__
+    self.finish()
+  File "/usr/lib/python2.7/SocketServer.py", line 716, in finish
+    self.wfile.close()
+  File "/usr/lib/python2.7/socket.py", line 279, in close
+    self.flush()
+  File "/usr/lib/python2.7/socket.py", line 303, in flush
+    self._sock.sendall(view[write_offset:write_offset+buffer_size])
+error: [Errno 32] Broken pipe
+127.0.0.1 - - [07/Aug/2017 18:34:17] "GET /test/dika/123 HTTP/1.1" 200 -
+127.0.0.1 - - [07/Aug/2017 18:35:54] "GET /test/dika/123 HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/usr/share/pyshared/flask/app.py", line 1836, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/share/pyshared/flask/app.py", line 1820, in wsgi_app
+    response = self.make_response(self.handle_exception(e))
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 273, in error_router
+    return original_handler(e)
+  File "/usr/share/pyshared/flask/app.py", line 1403, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 270, in error_router
+    return self.handle_error(e)
+  File "/usr/share/pyshared/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/share/pyshared/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 273, in error_router
+    return original_handler(e)
+  File "/usr/share/pyshared/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 270, in error_router
+    return self.handle_error(e)
+  File "/usr/share/pyshared/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/share/pyshared/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 480, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/usr/share/pyshared/flask/views.py", line 84, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py", line 595, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/var/www/html/setopbox3/assets/py/api3.py", line 21, in get
+    x = subprocess.Popen(['/usr/bin/python', '/var/www/html/setopbox3/assets/py/train.py', nama], stdout=subprocess.PIPE).communicate()[0]
+  File "/usr/lib/python2.7/subprocess.py", line 791, in communicate
+    stdout = _eintr_retry_call(self.stdout.read)
+  File "/usr/lib/python2.7/subprocess.py", line 476, in _eintr_retry_call
+    return func(*args)
+MemoryError
+127.0.0.1 - - [07/Aug/2017 18:35:56] "GET /test/dika/123?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+127.0.0.1 - - [07/Aug/2017 18:35:57] "GET /test/dika/123?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+127.0.0.1 - - [07/Aug/2017 18:35:57] "GET /test/dika/123?__debugger__=yes&cmd=resource&f=jquery.js HTTP/1.1" 200 -
+127.0.0.1 - - [07/Aug/2017 18:35:57] "GET /test/dika/123?__debugger__=yes&cmd=resource&f=source.png HTTP/1.1" 200 -
+127.0.0.1 - - [07/Aug/2017 18:35:57] "GET /test/dika/123?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+127.0.0.1 - - [07/Aug/2017 18:35:57] "GET /test/dika/123?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+127.0.0.1 - - [07/Aug/2017 18:37:40] "GET /test/dika/123 HTTP/1.1" 200 -
+status 
+[94mThe program will save 20 samples. Move your head around to increase while it runs.[0m
+
+Saving training sample 1/20
+Saving training sample 2/20
+Saving training sample 3/20
+Saving training sample 4/20
+Saving training sample 5/20
+Saving training sample 6/20
+Saving training sample 7/20
+Saving training sample 8/20
+Saving training sample 9/20
+Saving training sample 10/20
+Saving training sample 11/20
+Saving training sample 12/20
+Saving training sample 13/20
+Saving training sample 14/20
+Saving training sample 15/20
+Saving training sample 16/20
+Saving training sample 17/20
+Saving training sample 18/20
+Saving training sample 19/20
+Saving training sample 20/20
+
+----------------------------------------
+Exception happened during processing of request from ('127.0.0.1', 60100)
+----------------------------------------
+status 
+[94mThe program will save 20 samples. Move your head around to increase while it runs.[0m
+
+Saving training sample 1/20
+Saving training sample 2/20
+Saving training sample 3/20
+Saving training sample 4/20
+Saving training sample 5/20
+Saving training sample 6/20
+Saving training sample 7/20
+Saving training sample 8/20
+Saving training sample 9/20
+Saving training sample 10/20
+Saving training sample 11/20
+Saving training sample 12/20
+Saving training sample 13/20
+Saving training sample 14/20
+Saving training sample 15/20
+Saving training sample 16/20
+Saving training sample 17/20
+Saving training sample 18/20
+Saving training sample 19/20
+Saving training sample 20/20
+
+status 
+[94mThe program will save 20 samples. Move your head around to increase while it runs.[0m
+
+Saving training sample 1/20
+Saving training sample 2/20
+Saving training sample 3/20
+Saving training sample 4/20
+Saving training sample 5/20
+Face too small
+Face too small
+Saving training sample 6/20
+Saving training sample 7/20
+Saving training sample 8/20
+Face too small
+Saving training sample 9/20
+Saving training sample 10/20
+Saving training sample 11/20
+Face too small
+Saving training sample 12/20
+Saving training sample 13/20
+Saving training sample 14/20
+Saving training sample 15/20
+Saving training sample 16/20
+Saving training sample 17/20
+Saving training sample 18/20
+Saving training sample 19/20
+Saving training sample 20/20
+
+Traceback (most recent call last):
+  File "/var/www/html/setopbox3/assets/py/train.py", line 44, in <module>
+    print("Failed to open webcam. Trying again...")
+IOError: [Errno 32] Broken pipe
+Traceback (most recent call last):
+  File "/var/www/html/setopbox3/assets/py/train.py", line 44, in <module>
+    print("Failed to open webcam. Trying again...")
+IOError: [Errno 32] Broken pipe
+Traceback (most recent call last):
+  File "/var/www/html/setopbox3/assets/py/train.py", line 44, in <module>
+    print("Failed to open webcam. Trying again...")
+IOError: [Errno 32] Broken pipe
+ * Running on http://127.0.0.1:5000/
+ * Restarting with reloader
+127.0.0.1 - - [08/Aug/2017 10:55:07] "GET /favicon.ico HTTP/1.1" 404 -
+ * Running on http://127.0.0.1:5000/
+ * Restarting with reloader

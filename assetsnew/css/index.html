@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Chanthel Website</title>
+  <link rel="stylesheet" href="dist/main.css">
+  <link rel="stylesheet" href="dist/plugins/datatables/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="dist/plugins/datatables/responsive.dataTables.min.css">
+  <link href="dist/plugins/select2/select2.min.css" rel="stylesheet" />
+  <!-- <script src="https://use.fontawesome.com/d4b37cd90f.js"></script> -->
+  <script src="dist/js/snap.svg-min.js"></script>
+  <!-- tambahkan dua source css dan 1 js di bawah ini utk meggunakan notiikasi -->
+  <link rel="stylesheet" type="text/css" href="dist/css/ns-default.css" />
+  <link rel="stylesheet" type="text/css" href="dist/css/ns-style-growl.css" />
+  <script src="dist/js/modernizr.custom.js"></script>
+</head>
+<style >
+  #total-size{
+    font-weight: 600;
+  }
+  .upload-thumbnail{
+    width: 30px;
+    height: 30px;
+    background: gray;
+    border-radius: 15px;
+    text-align: center;
+    font-weight: 500;
+    color: #fff;
+    display: inline-block;
+    margin-right: 10px;
+  }
+  .upload-thumbnail p{
+    padding-top: 5px;
+  }
+  .create-newitem-footer {
+    /*tambahan*/
+    height: auto;
+    min-height: 30px; }
+    #containerUpload, #containerDelete {
+      width: 450px;
+      left: 33%; }
+</style>
+<body>
+  <div class="wrapper">
+    <!--cover when popup show-->
+    <div id="cover">
+    </div>
+    <!--for new folder-->
+    <div class="create-newitem-container" id="containerNewFolder">
+      <div class="create-newitem-header">
+        <p>Create New Folder</p>
+      </div>
+      <div class="create-newitem-content">
+        <div class="form-group">
+          <label for="">Folder Name</label><span class="required" style="  margin-left: 20px">*</span>
+          <input class="form-control" type="text" name="" value="" id="new-folder">
+        </div>
+      </div>
+      <div class="create-newitem-footer">
+        <button type="button" name="button" class="button-default" onclick="closeContainer()" style="margin-right:20px">Cancel</button>
+        <button type="button" name="button" class="button-primary create" onclick="closeContainer()" id="checkCreateFolder">Create</button>
+      </div>
+    </div>
+
+    <!--for upload-->
+    <div class="create-newitem-container" id="containerUpload">
+      <div class="create-newitem-header" >
+        <p id="total-file"></p>
+      </div>
+      <div class="create-newitem-content" >
+        <p id="file-description"></p>
+      </div>
+      <div class="create-newitem-footer">
+        <button type="button" name="button" class="button-default" onclick="closeContainer()" style="margin-right:20px">Cancel</button>
+        <button type="button" name="button" class="button-primary create" onclick="closeContainer()" id="checkUpload">Upload</button>
+      </div>
+    </div>
+
+    <!--for delete-->
+    <div class="create-newitem-container" id="containerDelete">
+      <div class="create-newitem-header">
+        <p>Delete</p>
+      </div>
+      <div class="create-newitem-content">
+        <div class="form-group">
+          <p>Are you sure want to delete? {nama file/folder}</p>
+        </div>
+      </div>
+      <div class="create-newitem-footer">
+        <button type="button" name="button" class="button-danger create" onclick="closeContainer()" id="checkDelete" style="margin-right:20px">Delete</button>
+        <button type="button" name="button" class="button-default" onclick="closeContainer()" >Cancel</button>
+      </div>
+    </div>
+
+    <!--for share-->
+    <div class="create-newitem-container" id="containerShare">
+      <div class="create-newitem-header">
+        <p>Share</p>
+      </div>
+      <div class="create-newitem-content">
+        <div class="form-group">
+          <input type="date" name="" value="" class="form-control">
+        </div>
+      </div>
+      <div class="create-newitem-footer">
+        <button type="button" name="button" class="button-danger create" onclick="closeContainer()" id="checkDelete" style="margin-right:20px">Delete</button>
+        <button type="button" name="button" class="button-default" onclick="closeContainer()" >Cancel</button>
+      </div>
+    </div>
+    <div class="side-wrapper">
+      <div class="logo">
+        <img src="dist/svg//logo-01.svg" alt="" height="auto" width="150">
+      </div>
+      <div class="sidebar-menu">
+        <nav>
+          <ul>
+            <li class="menu-vertical active">
+              <a href="#"><i class="fa fa-tachometer" aria-hidden="true"></i>Dashboard</a>
+            </li>
+            <li class="menu-vertical treeview-menu">
+              <a href="#"><i class="fa fa-users" aria-hidden="true"></i>Administration</a>
+            </li>
+            <ul class="treeview">
+              <li  class="tree">User Management</li>
+              <li  class="tree">Role Management</li>
+              <li  class="tree">Menu Management</li>
+              <li  class="tree">Session Management</li>
+            </ul>
+            <li class="menu-vertical">
+              <a href="#"><i class="fa fa-trash" aria-hidden="true"></i>Recycle Bin</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="content-wrapper">
+      <div class="header-content">
+        <div class="row">
+          <nav>
+            <div class="col-6">
+              <ul>
+                <li class="menu-horizontal active">
+                  <label for="file-upload" class="button-primary button-radius">Upload</label><input id="file-upload" type="file" multiple size="50" onchange="uploadContainer()"></input>
+                </li>
+                <li class="menu-horizontal" style="position:relative">
+                  <button type="button" name="button" class="button-secondary button-radius" id="CreateNew">Create New</button>
+                  <div class="menu-container">
+                    <ul>
+                      <li onclick="toggleContainer('DynamicForm')">Dynamic Form</li>
+                      <li onclick="toggleContainer('NewFolder')">Folder</li>
+                      <li onclick="toggleContainer('Overtime')">Overtime</li>
+                      <li onclick="toggleContainer('Reimburse')">Reimburse</li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="col-6">
+              <ul class="text-right no-padding">
+                <li class="menu-horizontal">
+                  <a href="#"><i class="fa fa-bell-o" aria-hidden="true"></i></a>
+                </li>
+                <li class="menu-horizontal">
+                  <a href="#"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+                </li>
+                <li class="menu-horizontal">
+                  <a href="login.html"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+      <div class="main-content">
+        <div class="row">
+          <div class="col-6 no-padding">
+            <ul class=" breadcrumb">
+              <li class="header">Task</li>
+              <li>Report</li>
+              <li>2018</li>
+              <li>Agustus</li>
+              <li>Report Agustus</li>
+              <li>Report Agustus</li>
+            </ul>
+          </div>
+          <div class="col-6 no-padding text-right">
+            <nav>
+              <ul class="content-filter">
+                <li><a class="filter-label">Filter By</a></li>
+                <li>
+                  <select class="select-multiple" name="filetype[]" multiple="multiple">
+                    <option>Audio</option>
+                    <option>Archieved</option>
+                    <option>Doc</option>
+                    <option>Folder</option>
+                    <option>Image</option>
+                    <option>Pdf</option>
+                    <option>Video</option>
+                    <option>Xls</option>
+                  </select>
+                </li>
+                <li>
+                  <select class="select-multiple-creator" name="creator[]" multiple="multiple">
+                    <option>Bani</option>
+                    <option>Danang</option>
+                    <option>Dhiar</option>
+                    <option>Dika</option>
+                    <option>Fatkhul</option>
+                    <option>Guntur</option>
+                    <option>Roslina</option>
+                  </select>
+                </li>
+                <li class="menu-horizontal">
+                  <a href="#"><i class="fa fa-th-large" aria-hidden="true"></i></a>
+                </li>
+                <li class="menu-horizontal">
+                  <a href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 margin-y no-padding">
+            <!-- for list view -->
+            <table id="list-view" class="hover" style="width:100%">
+              <thead>
+                <tr>
+                  <th class="adjust-width md">Name</th>
+                  <th class="adjust-width xs">Size</th>
+                  <th class="adjust-width sm">Last Modified</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="star">
+                  <td>
+                    <img src="dist/svg/blue folder.svg" alt="" class="thumbnail" width="30" height="30">
+                    <p>Folder Name Folder Name Folder Name</p>
+                  </td>
+                  <td>123 KB</td>
+                  <td>19/03/2018</td>
+                  <td class="morevert"><img src="dist/svg/more vert.svg" alt="" width="12px" height="13px" onclick="toggleMenu('Option')" id="Option">
+                    <div class="option-container" id="menuOption">
+                      <ul>
+                        <li>Preview</li>
+                        <li onclick="toggleContainer('Share')">Share</li>
+                        <li>Bookmark</li>
+                        <li>Download</li>
+                        <li>Copy</li>
+                        <li>Paste</li>
+                        <li>Rename</li>
+                        <li onclick="toggleContainer('Delete')">Delete</li>
+                        <li>Version History</li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="star">
+                  <td>
+                    <img src="dist/svg/blue folder.svg" alt="" class="thumbnail" width="30" height="30">
+                    <p>Folder Name</p>
+                  </td>
+                  <td>245 KB</td>
+                  <td>19/03/2018</td>
+                  <td class="morevert"><img src="dist/svg/more vert.svg" alt="" width="12px" height="13px"  ></td>
+                </tr>
+                <tr class="star">
+                  <td>
+                    <img src="dist/svg/archieved.svg" alt="" class="thumbnail" width="30" height="30">
+                    <p>Archieved File</p>
+                  </td>
+                  <td>12 MB</td>
+                  <td>19/03/2018</td>
+                  <td class="morevert"><img src="dist/svg/more vert.svg" alt="" width="12px" height="13px"  ></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+<script type="text/javascript" src="dist/js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="dist/plugins/datatables/js/jquery.dataTables.min.js"></script>
+<script src="dist/plugins/datatables/js/responsive.dataTables.min.js"></script>
+<script src="dist/plugins/select2/select2.min.js"></script>]"a;"
+<!-- tambahkan dua source js di bawah ini utk meggunakan notiikasi -->
+<script src="dist/js/classie.js"></script>
+<script src="dist/js/notificationFx.js"></script>
+
+<script src="dist/js/svgLoader.js"></script>
+<script>
+  $(document).ready(function(){
+    // $('#checkCreateFolder').attr('disabled',true);
+    $('#new-folder').keyup(function(){
+        if($(this).val().length !=0)
+            $('#checkCreateFolder').attr('disabled', false);
+        else
+            $('#checkCreateFolder').attr('disabled',true);
+    });
+
+    $('.select-multiple').select2({
+      placeholder: "Content Type",
+      maximumSelectionLength: 2
+    });
+    $('.select-multiple-creator').select2({
+      placeholder: "Creator",
+      maximumSelectionLength: 2
+    });
+
+    $("li.menu-vertical").click(function() {
+      // remove classes from all
+      $("li.menu-vertical").removeClass("active");
+      $("li.tree").removeClass("active");
+      // add class to the one we clicked
+      $(this).addClass("active");
+    });
+
+    $("li.tree").click(function() {
+      // remove classes from all
+      $("li.tree").removeClass("active");
+      // add class to the one we clicked
+      $(this).addClass("active");
+    });
+
+    /*inisialisasi dataTable*/
+    $('#list-view').DataTable( {
+      "responsive": true,
+      "paging":   true,
+      "bLengthChange": false,
+      "ordering": false,
+      "searching": false,
+      "pageLength": 6,
+      "info":     false
+    } );
+  });
+
+  function toggleMenu(id){
+    $('#menu'+id+'').toggleClass('shown');
+    if ($('.option-container').hasClass('shown')) {
+      $("#Option").css("background-color","#f3f3f3");
+    }
+    else {
+      $("#Option").css("background-color","transparent");
+    }
+  };
+  $(document).click(function (e) {
+    if (!$(e.target).parents().andSelf().is('.morevert')) {
+      $("#menuOption").removeClass("shown");
+        $("#Option").css("background-color","transparent");
+    }
+  });
+  $("#menuOption").click(function (e) {
+    e.stopPropagation();
+  });
+
+  //create new container
+  $('#CreateNew').click(function(){
+    $('.menu-container').toggleClass('shown');
+  })
+  $(document).click(function (e) {
+    if (!$(e.target).parents().andSelf().is('#CreateNew')) {
+      $(".menu-container").removeClass("shown");
+    }
+  });
+  $(".menu-container").click(function (e) {
+    e.stopPropagation();
+  });
+
+  function toggleContainer(id){
+    $('#container'+id+'').toggleClass('shown');
+    if ($('#container'+id+'').hasClass('shown')) {
+      $("#cover").css("display","block");
+      $(".menu-container").removeClass("shown");
+      if (id === "NewFolder") {
+          $('#new-folder').val("Untitled Folder");
+      }
+    }
+    else {
+      $("#cover").css("display","none");
+    }
+  };
+  function closeContainer(){
+    var a = $("#new-folder").val();
+    console.log(a);
+    $(".create-newitem-container").removeClass("shown");
+    $("#cover").css("display","none");
+  };
+
+
+  function uploadContainer(){
+    var x = document.getElementById("file-upload");
+    var txt = "";
+    if ('files' in x) {
+      if (x.files.length == 0) {
+        txt = "Select one or more files.";
+      } else {
+
+        toggleContainer("Upload")
+
+        for (var i = 0; i < x.files.length; i++) {
+          txt += "<br><div class='upload-thumbnail'><p>" + (i+1) + "</p></div><span style='margin-right:10px'>";
+          var file = x.files[i];
+          if ('name' in file) {
+            txt += "name: " + file.name + "</span>";
+          }
+          if ('size' in file) {
+            txt += "size: " + file.size + " bytes <br>";
+          }
+        }
+        document.getElementById('file-description').innerHTML= txt;
+        document.getElementById('total-file').innerHTML= "Total files choosed "+ x.files.length;
+      }
+    }
+    else {
+      if (x.value == "") {
+        txt += "Select one or more files.";
+      } else {
+        txt += "The files property is not supported by your browser!";
+        txt  += "<br>The path of the selected file: " + x.value; // If the browser does not support the files property, it will return the path of the selected file instead.
+      }
+    }
+  }
+
+//inisialisasi treeview menu
+var treeview = document.getElementsByClassName("treeview-menu");
+var x;
+for (x = 0; x < treeview.length; x++) {
+  treeview[x].addEventListener("click", function() {
+    this.classList.toggle("expand");
+    var tree = this.nextElementSibling;
+    if (tree.style.maxHeight){
+      tree.style.maxHeight = null;
+    } else {
+      tree.style.maxHeight = tree.scrollHeight + "px";
+    }
+  });
+};
+</script>
+<script>
+  (function() {
+    var bttn = document.getElementById( 'checkCreateFolder' );
+
+    // make sure..
+    bttn.disabled = false;
+
+    bttn.addEventListener( 'click', function() {
+      // simulate loading (for demo purposes only)
+      classie.add( bttn, 'active' );
+      setTimeout( function() {
+
+        classie.remove( bttn, 'active' );
+
+        // create the notification
+        var notification = new NotificationFx({
+          message : '<p>Folder has been created.</p>',
+          layout : 'growl',
+          effect : 'slide',
+          type : 'notice', // notice, warning or error
+          onClose : function() {
+            bttn.disabled = false;
+          }
+        });
+
+        // show the notification
+        notification.show();
+
+      }, 1200 );
+
+      // disable the button (for demo purposes only)
+      this.disabled = true;
+    } );
+  })();
+
+  (function() {
+    var bttn = document.getElementById( 'checkCreateFolder' );
+
+    // make sure..
+    bttn.disabled = false;
+
+    bttn.addEventListener( 'click', function() {
+      // simulate loading (for demo purposes only)
+      classie.add( bttn, 'active' );
+      setTimeout( function() {
+
+        classie.remove( bttn, 'active' );
+
+        // create the notification
+        var notification = new NotificationFx({
+          message : '<p>Folder has been created.</p>',
+          layout : 'growl',
+          effect : 'slide',
+          type : 'notice', // notice, warning or error
+          onClose : function() {
+            bttn.disabled = false;
+          }
+        });
+
+        // show the notification
+        notification.show();
+
+      }, 1200 );
+
+      // disable the button (for demo purposes only)
+      this.disabled = true;
+    } );
+  })();
+</script>
+
+</html>
