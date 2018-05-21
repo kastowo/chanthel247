@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-6 no-padding-y">
     <ul class=" breadcrumb">
-      <a type="button" name="button" class="button-primary" href="<?php echo base_url('Workflow/create_workflow')?>"><li id="create_wf" onclick="create_workflow()"><b>Create Workflow</b></li></a>
+      <button type="button" name="button" class="button-primary" onclick="toggleContainer('NewWorkflow')">Create New Workflow</button>
     </ul>
   </div>
 </div>

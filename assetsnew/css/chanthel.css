@@ -783,7 +783,7 @@ td p{
   letter-spacing: 1px;
   display: inline-flex; }
 
-#containerNewFolder,#containerRenameFolder, #containerAddGroups, #containerEditGroups {
+#containerNewFolder,#containerRenameFolder, #containerAddGroups, #containerEditGroups, #containerNewWorkflow {
   width: 450px;
   left: 33%; }/*tambahan*/
 
@@ -1370,5 +1370,81 @@ span.time{
 .clickable{
   cursor:pointer;
   padding:10px 18px !important
+}
+ul.properties{
+  list-style: none;
+}
+ul.properties li{
+  padding: 10px;
+}
+ul.properties li a{
+  text-decoration: none;
+  color: inherit;
+}
+ul.properties li span{
+  float: right;
+}
+ul.properties li:hover{
+  background: #f3f3f3;
+  cursor: pointer;
+}
+.properties-button{
+    position: absolute;
+    bottom: 0;
+}
+/* CSS for the traditional context menu */
+#contextMenu {
+  z-index: 10001;
+  position: absolute;
+  left: 5px;
+  border: 1px solid #444;
+  background-color: #F5F5F5;
+  display: none;
+  box-shadow: 0 0 10px rgba( 0, 0, 0, .4 );
+  font-size: 12px;
+  font-family: sans-serif;
+  font-weight: bold;
+}
+
+#contextMenu ul {
+  list-style: none;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+}
+
+#contextMenu li a {
+  position: relative;
+  min-width: 60px;
+  color: #444;
+  display: inline-block;
+  padding: 6px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#contextMenu li:hover {
+  background: #444;
+}
+#contextMenu li:hover a{
+    color: #EEE;
+}
+#contextMenu li ul li {
+  display: none;
+}
+
+#contextMenu li ul li a {
+  position: relative;
+  min-width: 60px;
+  padding: 6px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#contextMenu li:hover ul li {
+  display: block;
+  margin-left: 0px;
+  margin-top: 0px;
 }
   /*# sourceMappingURL=main.css.map */

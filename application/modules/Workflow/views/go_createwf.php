@@ -1,5 +1,4 @@
-
-<script type="text/javascript" src="<?php echo base_url('assets/gojs/go-debug.js')?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assetsnew/plugins/gojs/go-debug.js')?>"></script>
 <script id="code">
   function init() {
     if (window.goSamples) goSamples();  // init for these samples -- you don't need to call this
@@ -14,6 +13,16 @@
           "LinkRelinked": showLinkLabel,
           scrollsPageOnFocus: false,
           "undoManager.isEnabled": true  // enable undo & redo
+        });
+
+        // This is the actual HTML context menu:
+        var cxElement = document.getElementById("contextMenu");
+
+        // Since we have only one main element, we don't have to declare a hide method,
+        // we can set mainElement and GoJS will hide it automatically
+        var myContextMenu = $(go.HTMLInfo, {
+          show: showContextMenu,
+          mainElement: cxElement
         });
 
     // when the document is modified, add a "*" to the title and enable the "Save" button
@@ -39,7 +48,7 @@
         new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
         {
           // the Node.location is at the center of each node
-          locationSpot: go.Spot.Center,
+          locationSpot: go.Spot.Left,
           //isShadowed: true,
           //shadowColor: "#888",
           // handle mouse enter/leave events to show/hide the ports
@@ -72,25 +81,96 @@
 
     var lightText = 'whitesmoke';
 
-    myDiagram.nodeTemplateMap.add("",  // the default category
+    myDiagram.nodeTemplateMap.add("Start",
+      $(go.Node, "Spot", nodeStyle(),
+        $(go.Panel, "Auto",
+          { contextMenu: myContextMenu },
+          $(go.Shape, "Circle",
+            { minSize: new go.Size(40, 40),  fill: "#9cea9c", stroke: "#2a9b6a", strokeWidth: 2}),
+          $(go.TextBlock, "Start",
+            { font: "9pt Helvetica, Arial, sans-serif", stroke: lightText },
+            new go.Binding("text"))
+        ),
+        // three named ports, one on each side except the top, all output only:
+        makePort("L", go.Spot.Left, true, false),
+        makePort("R", go.Spot.Right, true, false),
+        makePort("B", go.Spot.Bottom, true, false)
+      ));
+    myDiagram.nodeTemplateMap.add("StartScanner",
+      $(go.Node, "Spot", nodeStyle(),
+        $(go.Panel, "Auto",
+          { contextMenu: myContextMenu },
+          $(go.Shape, "Circle",
+            { minSize: new go.Size(40, 40),  fill: "#9cea9c", stroke: "#2a9b6a", strokeWidth: 2},
+            new go.Binding("figure", "figure")),
+          $(go.Picture, "<?php echo base_url(); ?>assets/SVG_dark/scanner.png",
+            { width: 28, height: 21 },
+            new go.Binding("source", "path")),
+          $(go.TextBlock, "Start",
+            { font: "9pt Helvetica, Arial, sans-serif", stroke: lightText },
+            new go.Binding("text"))
+        ),
+        // three named ports, one on each side except the top, all output only:
+        makePort("L", go.Spot.Left, true, false),
+        makePort("R", go.Spot.Right, true, false),
+        makePort("B", go.Spot.Bottom, true, false)
+      ));
+
+    myDiagram.nodeTemplateMap.add("StartDocument",
+      $(go.Node, "Spot", nodeStyle(),
+        $(go.Panel, "Auto",
+          { contextMenu: myContextMenu },
+          $(go.Shape, "Circle",
+            { minSize: new go.Size(40, 40),  fill: "#9cea9c", stroke: "#2a9b6a", strokeWidth: 2},
+            new go.Binding("figure", "figure")),
+          $(go.Picture, "<?php echo base_url(); ?>assets/SVG_dark/document-01.png",
+            { width: 28, height: 21 },
+            new go.Binding("source", "path")),
+          $(go.TextBlock, "Start",
+            { font: "9pt Helvetica, Arial, sans-serif", stroke: lightText },
+            new go.Binding("text"))
+      ),
+      // three named ports, one on each side except the top, all output only:
+      makePort("L", go.Spot.Left, true, false),
+      makePort("R", go.Spot.Right, true, false),
+      makePort("B", go.Spot.Bottom, true, false)
+    ));
+
+    myDiagram.nodeTemplateMap.add("StartEmail",
+      $(go.Node, "Spot", nodeStyle(),
+        $(go.Panel, "Auto",
+          { contextMenu: myContextMenu },
+          $(go.Shape, "Circle",
+            { minSize: new go.Size(40, 40),  fill: "#9cea9c", stroke: "#2a9b6a", strokeWidth: 2},
+            new go.Binding("figure", "figure")),
+          $(go.Picture, "<?php echo base_url(); ?>assets/SVG_dark/email-01.png",
+            { width: 26, height: 18 },
+            new go.Binding("source", "path")),
+          $(go.TextBlock, "Start",
+            { font: "9pt Helvetica, Arial, sans-serif", stroke: lightText },
+            new go.Binding("text"))
+      ),
+      // three named ports, one on each side except the top, all output only:
+      makePort("L", go.Spot.Left, true, false),
+      makePort("R", go.Spot.Right, true, false),
+      makePort("B", go.Spot.Bottom, true, false)
+    ));
+    myDiagram.nodeTemplateMap.add("Activity",
       $(go.Node, "Spot", nodeStyle(),
         // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
-        //$(go.Shape, "RoundedRectangle",
-        //    { fill: "#E0E8FF", stroke: "gray", width: 50, height: 50},
-        //    new go.Binding("figure", "figure")),
-        $(go.Panel, "Vertical",
-          $(go.Picture,
-            { margin: 2, width: 26, height: 26 },
-              new go.Binding("source")),
+        $(go.Panel, "Auto",
+        { contextMenu: myContextMenu },
+          $(go.Shape, "RoundedRectangle",
+            { fill: "#FFFFFF", stroke: "#5b5b5c", strokeWidth:2},
+            new go.Binding("figure", "figure")),
           $(go.TextBlock,
             {
-              font: " 9pt Helvetica, Arial, sans-serif",
-              stroke: "gray",
-              margin: 2,
+              font: "9pt Helvetica, Arial, sans-serif",
+              stroke: "#5b5b5c",
+              margin: 8,
               maxSize: new go.Size(160, NaN),
               wrap: go.TextBlock.WrapFit,
               editable: true
-              //width: 90, height: 33
             },
             new go.Binding("text").makeTwoWay())
         ),
@@ -99,32 +179,24 @@
         makePort("L", go.Spot.Left, true, true),
         makePort("R", go.Spot.Right, true, true),
         makePort("B", go.Spot.Bottom, true, false)
-      ));
+    ));
 
-
-    //custom by fly_247
-
-
-    myDiagram.nodeTemplateMap.add("Actor",  // the default category
+    myDiagram.nodeTemplateMap.add("Decision",
       $(go.Node, "Spot", nodeStyle(),
         // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
-        $(go.Shape, "RoundedRectangle",
-            { fill: "#E0E8FF", stroke: null, width: 65/*, height: 60*/},
+        $(go.Panel, "Auto",
+        { contextMenu: myContextMenu },
+          $(go.Shape, "Diamond",
+            { fill: "#FFFFFF", stroke: "#5b5b5c", strokeWidth:2, width:40, height: 40},
             new go.Binding("figure", "figure")),
-        $(go.Panel, "Vertical",
-          $(go.Picture,  "<?php echo base_url()?>assets/ico/user.png",
-            {  margin: 2, width: 35, height: 35 },
-              new go.Binding("source", "path")),
           $(go.TextBlock,
             {
-              font: " 9pt Helvetica, Arial, sans-serif",
-              stroke: "black",
-              margin: 2,
-               maxSize: new go.Size(160, NaN),
-               wrap: go.TextBlock.WrapFit,
-               textAlign: "center",
-              editable: true,
-              width: 60//, height: 33
+              font: "9pt Helvetica, Arial, sans-serif",
+              stroke: "#5b5b5c",
+              margin: 8,
+              maxSize: new go.Size(160, NaN),
+              wrap: go.TextBlock.WrapFit,
+              editable: true
             },
             new go.Binding("text").makeTwoWay())
         ),
@@ -133,364 +205,76 @@
         makePort("L", go.Spot.Left, true, true),
         makePort("R", go.Spot.Right, true, true),
         makePort("B", go.Spot.Bottom, true, true)
-      ));
+    ));
 
-      myDiagram.nodeTemplateMap.add("Document",  // the default category
+    myDiagram.nodeTemplateMap.add("EmailNotification",
       $(go.Node, "Spot", nodeStyle(),
-        // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
-        $(go.Shape, "RoundedRectangle",
-            { fill: "#E0E8FF", stroke: null, width: 65/*, height: 60*/},
+        $(go.Panel, "Auto",
+          { contextMenu: myContextMenu },
+          $(go.Shape, "Circle",
+            { minSize: new go.Size(40, 40),  fill: "#83bfed", stroke: "#4982ad", strokeWidth: 2},
             new go.Binding("figure", "figure")),
-        $(go.Panel, "Vertical",
-          $(go.Picture, "<?php echo base_url()?>assets/ico/doc.png",
-            {   margin: 2, width: 35, height: 35 },
-              new go.Binding("source", "path")),
-          $(go.TextBlock,
-            {
-              font: " 9pt Helvetica, Arial, sans-serif",
-              stroke: "black",
-              margin: 2,
-               maxSize: new go.Size(160, NaN),
-               wrap: go.TextBlock.WrapFit,
-               textAlign: "center",
-              editable: true,
-              width: 60//, height: 33
-            },
-            new go.Binding("text").makeTwoWay())
-        ),
-        // four named ports, one on each side:
-        makePort("T", go.Spot.Top, true, true),
-        makePort("L", go.Spot.Left, true, true),
-        makePort("R", go.Spot.Right, true, true),
-        makePort("B", go.Spot.Bottom, true, true)
-      ));
+          $(go.Picture, "<?php echo base_url(); ?>assets/SVG_dark/email-01-01.png",
+            { width: 26, height: 18 },
+            new go.Binding("source", "path")),
+          $(go.TextBlock, "Start",
+            { font: "9pt Helvetica, Arial, sans-serif", stroke: lightText },
+            new go.Binding("text"))
+      ),
+      // three named ports, one on each side except the top, all output only:
+      makePort("L", go.Spot.Left, true, true),
+      makePort("R", go.Spot.Right, true, true),
+      makePort("B", go.Spot.Bottom, true, true),
+      makePort("T", go.Spot.Bottom, true, true)
+    ));
 
-      myDiagram.nodeTemplateMap.add("Copy",  // the default category
+    myDiagram.nodeTemplateMap.add("End",
       $(go.Node, "Spot", nodeStyle(),
-        // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
-        $(go.Shape, "RoundedRectangle",
-            { fill: "#E0E8FF", stroke: null, width: 65/*, height: 60*/},
-            new go.Binding("figure", "figure")),
-        $(go.Panel, "Vertical",
-          $(go.Picture, "<?php echo base_url()?>assets/ico/copy.png",
-            {  margin: 2, width: 35, height: 35 },
-              new go.Binding("source", "path")),
-          $(go.TextBlock,
-            {
-              font: " 9pt Helvetica, Arial, sans-serif",
-              stroke: "black",
-              margin: 2,
-               maxSize: new go.Size(160, NaN),
-               wrap: go.TextBlock.WrapFit,
-               textAlign: "center",
-              editable: true,
-              width: 60//, height: 33
-            },
-            new go.Binding("text").makeTwoWay())
+        $(go.Panel, "Auto",
+          { contextMenu: myContextMenu },
+          $(go.Shape, "Circle",
+            { minSize: new go.Size(40, 40), fill: "#dd6c41", stroke: "#DC3C00", strokeWidth:2 }),
+          $(go.TextBlock, "End",
+            { font: "9pt Helvetica, Arial, sans-serif", stroke: lightText },
+            new go.Binding("text"))
         ),
-        // four named ports, one on each side:
-        makePort("T", go.Spot.Top, true, true),
-        makePort("L", go.Spot.Left, true, true),
-        makePort("R", go.Spot.Right, true, true),
-        makePort("B", go.Spot.Bottom, true, true)
-      ));
-
-
-      myDiagram.nodeTemplateMap.add("Storage",  // the default category
-      $(go.Node, "Spot", nodeStyle(),
-        // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
-        $(go.Shape, "RoundedRectangle",
-            { fill: "#E0E8FF", stroke: null, width: 65/*, height: 60*/},
-            new go.Binding("figure", "figure")),
-        $(go.Panel, "Vertical",
-          $(go.Picture, "<?php echo base_url()?>assets/ico/PACS_favicon11.png",
-            {  margin: 2, width: 35, height: 35 },
-              new go.Binding("source", "path")),
-          $(go.TextBlock,
-            {
-              font: " 9pt Helvetica, Arial, sans-serif",
-              stroke: "black",
-              margin: 2,
-               maxSize: new go.Size(160, NaN),
-               wrap: go.TextBlock.WrapFit,
-               textAlign: "center",
-              editable: true,
-              width: 60//, height: 33
-            },
-            new go.Binding("text").makeTwoWay())
-        ),
-        // four named ports, one on each side:
-        makePort("T", go.Spot.Top, true, true),
-        makePort("L", go.Spot.Left, true, true),
-        makePort("R", go.Spot.Right, true, true),
-        makePort("B", go.Spot.Bottom, true, true)
-      ));
-
-      myDiagram.nodeTemplateMap.add("Delete",  // the default category
-      $(go.Node, "Spot", nodeStyle(),
-        // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
-        $(go.Shape, "RoundedRectangle",
-            { fill: "#E0E8FF", stroke: null, width: 65/*, height: 60*/},
-            new go.Binding("figure", "figure")),
-        $(go.Panel, "Vertical",
-          $(go.Picture, "<?php echo base_url()?>assets/ico/del.png",
-            {  margin: 2, width: 35, height: 35 },
-              new go.Binding("source", "path")),
-          $(go.TextBlock,
-            {
-              font: " 9pt Helvetica, Arial, sans-serif",
-              stroke: "black",
-              margin: 2,
-               maxSize: new go.Size(160, NaN),
-               wrap: go.TextBlock.WrapFit,
-               textAlign: "center",
-              editable: true,
-              width: 60//, height: 33
-            },
-            new go.Binding("text").makeTwoWay())
-        ),
-        // four named ports, one on each side:
+        // three named ports, one on each side except the bottom, all input only:
         makePort("T", go.Spot.Top, false, true),
         makePort("L", go.Spot.Left, false, true),
-        makePort("R", go.Spot.Right, false, true),
-        makePort("B", go.Spot.Bottom, false, true)
+        makePort("R", go.Spot.Right, false, true)
       ));
 
-      myDiagram.nodeTemplateMap.add("Start",  // the default category
-      $(go.Node, "Spot", nodeStyle(),
-        // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
-        $(go.Shape, "Circle",
-            { fill: "#9cea9c", stroke: null, width: 65/*, height: 60*/},
-            new go.Binding("figure", "figure")),
-        $(go.Panel, "Vertical",
-            //$(go.Picture, "<?php echo base_url()?>assets/ico/del.png", //{  margin: 2, width: 35, height: 35 }, //  new go.Binding("source", "path")),
-          $(go.TextBlock,
-            {
-              font: " 9pt Helvetica, Arial, sans-serif",
-              stroke: "black",
-              margin: 2,
-               maxSize: new go.Size(160, NaN),
-               wrap: go.TextBlock.WrapFit,
-               textAlign: "center",
-              editable: true,
-              width: 60//, height: 33
-            },
-            new go.Binding("text").makeTwoWay())
-        ),
-        // four named ports, one on each side:
-        makePort("T", go.Spot.Top, true, false),
-        makePort("L", go.Spot.Left, true, false),
-        makePort("R", go.Spot.Right, true, false),
-        makePort("B", go.Spot.Bottom, true, false)
+    myDiagram.nodeTemplateMap.add("Comment",
+      $(go.Node, "Auto", nodeStyle(),
+        { contextMenu: myContextMenu },
+        $(go.Shape, "File",
+          { minSize: new go.Size(80, 40), fill: "#EFFAB4", stroke: null }),
+        $(go.TextBlock,
+          {
+            margin: 5,
+            maxSize: new go.Size(200, NaN),
+            wrap: go.TextBlock.WrapFit,
+            textAlign: "center",
+            editable: true,
+            font: "9pt Helvetica, Arial, sans-serif",
+            stroke: '#454545'
+          },
+          new go.Binding("text").makeTwoWay())
+        // no ports, because no links are allowed to connect with a comment
       ));
-      myDiagram.nodeTemplateMap.add("StartMail",  // the default category
-      $(go.Node, "Spot", nodeStyle(),
-        // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
-        $(go.Shape, "Circle",
-            { fill: "#9cea9c", stroke: null, width: 65/*, height: 60*/},
-            new go.Binding("figure", "figure")),
-        $(go.Panel, "Vertical",
-            //$(go.Picture, "<?php echo base_url()?>assets/ico/del.png", //{  margin: 2, width: 35, height: 35 }, //  new go.Binding("source", "path")),
-          $(go.TextBlock,
-            {
-              font: " 9pt Helvetica, Arial, sans-serif",
-              stroke: "black",
-              margin: 2,
-               maxSize: new go.Size(160, NaN),
-               wrap: go.TextBlock.WrapFit,
-               textAlign: "center",
-              editable: true,
-              width: 60//, height: 33
-            },
-            new go.Binding("text").makeTwoWay())
-        ),
-        // four named ports, one on each side:
-        makePort("T", go.Spot.Top, true, false),
-        makePort("L", go.Spot.Left, true, false),
-        makePort("R", go.Spot.Right, true, false),
-        makePort("B", go.Spot.Bottom, true, false)
-      ));
-
-    myDiagram.nodeTemplateMap.add("StartScanner",  // the default category
-      $(go.Node, "Spot", nodeStyle(),
-        // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
-        $(go.Shape, "Circle",
-            { fill: "#9cea9c", stroke: null, width: 65/*, height: 60*/},
-            new go.Binding("figure", "figure")),
-        $(go.Panel, "Vertical",
-            //$(go.Picture, "<?php echo base_url()?>assets/ico/del.png", //{  margin: 2, width: 35, height: 35 }, //  new go.Binding("source", "path")),
-          $(go.TextBlock,
-            {
-              font: " 9pt Helvetica, Arial, sans-serif",
-              stroke: "black",
-              margin: 2,
-               maxSize: new go.Size(160, NaN),
-               wrap: go.TextBlock.WrapFit,
-               textAlign: "center",
-              editable: true,
-              width: 60//, height: 33
-            },
-            new go.Binding("text").makeTwoWay())
-        ),
-        // four named ports, one on each side:
-        makePort("T", go.Spot.Top, true, false),
-        makePort("L", go.Spot.Left, true, false),
-        makePort("R", go.Spot.Right, true, false),
-        makePort("B", go.Spot.Bottom, true, false)
-      ));
-
-     myDiagram.nodeTemplateMap.add("Action",  // the default category
-      $(go.Node, "Spot", nodeStyle(),
-        // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
-        $(go.Shape, "RoundedRectangle",
-            { fill: "#89dae4", stroke: null, width: 80, height: 60},
-            new go.Binding("figure", "figure")),
-        $(go.Panel, "Vertical",
-            //$(go.Picture, "<?php echo base_url()?>assets/ico/del.png", //{  margin: 2, width: 35, height: 35 }, //  new go.Binding("source", "path")),
-          $(go.TextBlock,
-            {
-              font: " 9pt Helvetica, Arial, sans-serif",
-              stroke: "black",
-              margin: 2,
-               maxSize: new go.Size(160, NaN),
-               wrap: go.TextBlock.WrapFit,
-               textAlign: "center",
-              editable: true,
-              width: 60//, height: 33
-            },
-            new go.Binding("text").makeTwoWay())
-        ),
-        // four named ports, one on each side:
-        makePort("T", go.Spot.Top, true, true),
-        makePort("L", go.Spot.Left, true, true),
-        makePort("R", go.Spot.Right, true, true),
-        makePort("B", go.Spot.Bottom, true, true)
-      ));
-
-          myDiagram.nodeTemplateMap.add("ActionMail",  // the default category
-      $(go.Node, "Spot", nodeStyle(),
-        // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
-        $(go.Shape, "Circle",
-            { fill: "#89dae4", stroke: null, width: 65 },
-            new go.Binding("figure", "figure")),
-        $(go.Panel, "Vertical",
-            //$(go.Picture, "<?php echo base_url()?>assets/ico/del.png", //{  margin: 2, width: 35, height: 35 }, //  new go.Binding("source", "path")),
-          $(go.TextBlock,
-            {
-              font: " 9pt Helvetica, Arial, sans-serif",
-              stroke: "black",
-              margin: 2,
-               maxSize: new go.Size(160, NaN),
-               wrap: go.TextBlock.WrapFit,
-               textAlign: "center",
-              editable: true,
-              width: 60//, height: 33
-            },
-            new go.Binding("text").makeTwoWay())
-        ),
-        // four named ports, one on each side:
-        makePort("T", go.Spot.Top, true, true),
-        makePort("L", go.Spot.Left, true, true),
-        makePort("R", go.Spot.Right, true, true),
-        makePort("B", go.Spot.Bottom, true, true)
-      ));
-     myDiagram.nodeTemplateMap.add("Condition",  // the default category
-      $(go.Node, "Spot", nodeStyle(),
-        // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
-        $(go.Shape, "Diamond",
-            { fill: "#89dae4", stroke: null, width: 70, height: 70},
-            new go.Binding("figure", "figure")),
-        $(go.Panel, "Vertical",
-            //$(go.Picture, "<?php echo base_url()?>assets/ico/del.png", //{  margin: 2, width: 35, height: 35 }, //  new go.Binding("source", "path")),
-          $(go.TextBlock,
-            {
-              font: " 9pt Helvetica, Arial, sans-serif",
-              stroke: "black",
-              margin: 2,
-               maxSize: new go.Size(160, NaN),
-               wrap: go.TextBlock.WrapFit,
-               textAlign: "center",
-              editable: true,
-              width: 60//, height: 33
-            },
-            new go.Binding("text").makeTwoWay())
-        ),
-        // four named ports, one on each side:
-        makePort("T", go.Spot.Top, true, true),
-        makePort("L", go.Spot.Left, true, true),
-        makePort("R", go.Spot.Right, true, true),
-        makePort("B", go.Spot.Bottom, true, true)
-      ));
-
-     myDiagram.nodeTemplateMap.add("Finish",  // the default category
-      $(go.Node, "Spot", nodeStyle(),
-        // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
-        $(go.Shape, "Circle",
-            { fill: "#ff728b", stroke: "#ff0000", strokeWidth: 6, width: 65/*, height: 60*/},
-            new go.Binding("figure", "figure")),
-        $(go.Panel, "Vertical",
-            //$(go.Picture, "<?php echo base_url()?>assets/ico/del.png", //{  margin: 2, width: 35, height: 35 }, //  new go.Binding("source", "path")),
-          $(go.TextBlock,
-            {
-              font: " 9pt Helvetica, Arial, sans-serif",
-              stroke: "black",
-              margin: 2,
-               maxSize: new go.Size(160, NaN),
-               wrap: go.TextBlock.WrapFit,
-               textAlign: "center",
-              editable: true,
-              width: 60//, height: 33
-            },
-            new go.Binding("text").makeTwoWay())
-        ),
-        // four named ports, one on each side:
-        makePort("T", go.Spot.Top, false, true),
-        makePort("L", go.Spot.Left, false, true),
-        makePort("R", go.Spot.Right, false, true),
-        makePort("B", go.Spot.Bottom, false, true)
-      ));
-
-          myDiagram.nodeTemplateMap.add("FinishMail",  // the default category
-      $(go.Node, "Spot", nodeStyle(),
-        // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
-        $(go.Shape, "Circle",
-            { fill: "#ff728b", stroke: "#ff0000", strokeWidth: 6, width: 65/*, height: 60*/},
-            new go.Binding("figure", "figure")),
-        $(go.Panel, "Vertical",
-            //$(go.Picture, "<?php echo base_url()?>assets/ico/del.png", //{  margin: 2, width: 35, height: 35 }, //  new go.Binding("source", "path")),
-          $(go.TextBlock,
-            {
-              font: " 9pt Helvetica, Arial, sans-serif",
-              stroke: "black",
-              margin: 2,
-               maxSize: new go.Size(160, NaN),
-               wrap: go.TextBlock.WrapFit,
-               textAlign: "center",
-              editable: true,
-              width: 60//, height: 33
-            },
-            new go.Binding("text").makeTwoWay())
-        ),
-        // four named ports, one on each side:
-        makePort("T", go.Spot.Top, false, true),
-        makePort("L", go.Spot.Left, false, true),
-        makePort("R", go.Spot.Right, false, true),
-        makePort("B", go.Spot.Bottom, false, true)
-      ));
-    //End of custom
 
 
     // replace the default Link template in the linkTemplateMap
     myDiagram.linkTemplate =
       $(go.Link,  // the whole link panel
         {
-          // routing: go.Link.AvoidsNodes,
-          //curve: go.Link.JumpGap, //JumpOver,//Bezier ,
-          //corner: 5, toShortLength: 4,
+          routing: go.Link.AvoidsNodes,
+          curve: go.Link.JumpOver,
+          corner: 5, toShortLength: 4,
           relinkableFrom: true,
           relinkableTo: true,
           reshapable: true,
-          //resegmentable: true,
+          resegmentable: true,
           // mouse-overs subtly highlight links:
           mouseEnter: function(e, link) { link.findObject("HIGHLIGHT").stroke = "rgba(30,144,255,0.2)"; },
           mouseLeave: function(e, link) { link.findObject("HIGHLIGHT").stroke = "transparent"; }
@@ -526,10 +310,9 @@
     }
 
     // temporary links used by LinkingTool and RelinkingTool are also orthogonal:
-    myDiagram.toolManager.linkingTool.temporaryLink.routing = go.Link.Normal;// Orthogonal ; //Orthogonal
-    myDiagram.toolManager.relinkingTool.temporaryLink.routing = go.Link.Normal;//Orthogonal; ; //Orthogonal
+    myDiagram.toolManager.linkingTool.temporaryLink.routing = go.Link.Orthogonal;
+    myDiagram.toolManager.relinkingTool.temporaryLink.routing = go.Link.Orthogonal;
 
-    load();  // load an initial diagram from some JSON text
 
     // initialize the Palette that is on the left side of the page
     myPalette =
@@ -538,167 +321,164 @@
           scrollsPageOnFocus: false,
           nodeTemplateMap: myDiagram.nodeTemplateMap,  // share the templates used by myDiagram
           model: new go.GraphLinksModel([  // specify the contents of the Palette
-            //{ category: "Start", text: "Start" },
-            //{ text: "Step", source: "https://d30y9cdsu7xlg0.cloudfront.net/png/11690-200.png" },
-            //{ text: "???", figure: "Diamond" },
-            //{ category: "End", text: "End" },
-            //{ category: "Comment", text: "Comment" }
-
-            //,source: "<?php echo base_url()?>assets/ico/user.png"
-            //,source: "<?php echo base_url()?>assets/ico/doc.png"
-            //,source: "<?php echo base_url()?>assets/ico/copy.png"
-            //,source: "<?php echo base_url()?>assets/ico/PACS_favicon11.png"
-            //,source: "<?php echo base_url()?>assets/ico/del.png"
-              { key: "Start", category: "Start",text: "Start" },
-              { key: "StartMail", category: "StartMail",text: "Email" },
-              { key: "StartScanner", category: "StartScanner",text: "Scanner" },
-
-              { key: "Action", category: "Action",text: "Action" },
-              { key: "ActionMail", category: "ActionMail",text: "Email" },
-              { key: "Condition", category: "Condition",text: "Condition" },
-
-              { key: "Finish", category: "Finish",text: "Finish" },
-              { key: "FinishMail", category: "FinishMail",text: "Email" },
-
-              /*
-              { key: "Actor", category: "Actor",text: "Actor" },
-              { key: "Document", category: "Document",text: "Document" },
-              { key: "Copy", category: "Copy",text: "Copy" },
-              { key: "Storage", category: "Storage",text: "Chanthel" },
-              { key: "Delete", category: "Delete",text: "Delete" }
-              */
+            { category: "Start", text: "" },
+            { category: "StartScanner", text: "" },
+            { category: "StartDocument", text: "" },
+            { category: "StartEmail", text: "" },
+            { category: "Activity", text: "Activity" },
+            { category: "Decision", text: ""},
+            { category: "EmailNotification", text: ""},
+            { category: "End", text: "" },
+            { category: "Comment", text: "" }
           ])
         });
+
+        myDiagram.contextMenu = myContextMenu;
+
+        // We don't want the div acting as a context menu to have a (browser) context menu!
+        cxElement.addEventListener("contextmenu", function(e) {
+          e.preventDefault();
+          return false;
+        }, false);
+
+        function showContextMenu(obj, diagram, tool) {
+          // Show only the relevant buttons given the current state.
+          var cmd = diagram.commandHandler;
+          document.getElementById("cut").style.display = cmd.canCutSelection() ? "block" : "none";
+          document.getElementById("copy").style.display = cmd.canCopySelection() ? "block" : "none";
+          document.getElementById("paste").style.display = cmd.canPasteSelection() ? "block" : "none";
+          document.getElementById("delete").style.display = cmd.canDeleteSelection() ? "block" : "none";
+
+          // Now show the whole context menu element
+          cxElement.style.display = "block";
+          // we don't bother overriding positionContextMenu, we just do it here:
+          var mousePt = diagram.lastInput.viewPoint;
+          cxElement.style.left = mousePt.x + "px";
+          cxElement.style.top = mousePt.y + "px";
+        }
+        // This is the general menu command handler, parameterized by the name of the command.
+        function cxcommand(event, val) {
+          if (val === undefined) val = event.currentTarget.id;
+          var diagram = myDiagram;
+          switch (val) {
+            case "cut": diagram.commandHandler.cutSelection(); break;
+            case "copy": diagram.commandHandler.copySelection(); break;
+            case "paste": diagram.commandHandler.pasteSelection(diagram.lastInput.documentPoint); break;
+            case "delete": diagram.commandHandler.deleteSelection(); break;
+          }
+          diagram.currentTool.stopTool();
+        }
+
   } // end init
+
 
   // Make all ports on a node visible when the mouse is over the node
   function showPorts(node, show) {
     var diagram = node.diagram;
     if (!diagram || diagram.isReadOnly || !diagram.allowLink) return;
     node.ports.each(function(port) {
-        port.stroke = (show ? "blue" : null);
+        port.stroke = (show ? "white" : null);
       });
   }
 
-
-  // Show the diagram's model in JSON format that the user may edit
-  function save() {
-    document.getElementById("wf_templt").value = myDiagram.model.toJson();
-    myDiagram.isModified = false;
-    save_data_wf();
-  }
-  //costom by fly
-  function save_change(id){
-    document.getElementById("wf_templt").value = myDiagram.model.toJson();
-    myDiagram.isModified = false;
-    save_cdata_wf(id);
-  }
-
-  function load() {
-    myDiagram.model = go.Model.fromJson(document.getElementById("wf_templt").value);
-  }
-
-  // add an SVG rendering of the diagram at the end of this page
-  function makeSVG() {
-    var svg = myDiagram.makeSvg({
-        scale: 0.5
-      });
-    svg.style.border = "1px solid black";
-    obj = document.getElementById("SVGArea");
-    obj.appendChild(svg);
-    if (obj.children.length > 0) {
-      obj.replaceChild(svg, obj.children[0]);
-    }
-  }
 </script>
 <body onload="init()">
-
-<div id="sample">
-    <div id="myPaletteDiv" style="width: 100%; height:100px;overflow-x: auto; margin-right: 2px; background-color: #FFFAFA; border: solid 0px black;" ></div>
-  <div style="width: 100%; display: flex; justify-content: space-between">
-    <div id="myDiagramDiv" style="flex-grow: 1; min-height: 500px; border: solid 1px silver"></div>
+  <div class="row">
+    <div class="col-12 no-padding">
+      <div id="sample" style="position:relative">
+        <div id="myPaletteDiv" style="width: 100%; height:60px; background-color: #f8f8f8; border: solid 0px black "></div>
+        <div class="row margin-y">
+          <div class="col-9 no-padding">
+            <div style="width: 100%; display: flex;">
+              <div id="myDiagramDiv" style="flex-grow: 1; min-height: 470px; border: solid 0.5px silver"></div>
+              <div id="contextMenu">
+                <ul>
+                  <li id="cut" onclick="cxcommand(event)"><a href="#" target="_self">Cut</a></li>
+                  <li id="copy" onclick="cxcommand(event)"><a href="#" target="_self">Copy</a></li>
+                  <li id="paste" onclick="cxcommand(event)"><a href="#" target="_self">Paste</a></li>
+                  <li id="delete" onclick="cxcommand(event)"><a href="#" target="_self">Delete</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 no-padding" style="min-height:450px">
+            <div class="box" style="border:0.5px solid silver !important">
+              <div class="box-header" style="background: #428bca;">
+                <p class="box-title" style="color:white; padding-left:10px">Properties</p>
+              </div>
+              <div class="box-body">
+                <ul class="properties">
+                  <li>Variable<span><i class="fa fa-plus-circle"></i></span></li>
+                  <li><a href="<?php echo base_url('Workflow/createDynamicForm')?>">Dyanamic Form<span><i class="fa fa-plus-circle"></i></span></a></li>
+                  <li>Input Document<span><i class="fa fa-plus-circle"></i></span></li>
+                </ul>
+              </div>
+            </div>
+            <div class="properties-button">
+              <button type="button" name="button" class="button-default" style="margin-right:20px">Reset</button>
+              <button type="button" name="button" class="button-primary">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <!--
-  <button type="button" class="button-primary" id="SaveButton" onclick="save()">Save</button>
-  <button onclick="load()">Load</button>
-  Diagram Model saved in JSON format: -->
-  <textarea id="wf_templt" style="width:100%;height:300px;display:none;">
-{ "class": "go.GraphLinksModel",
-  "linkFromPortIdProperty": "fromPort",
-  "linkToPortIdProperty": "toPort",
-  "nodeDataArray": [],
-  "linkDataArray": []}
-  </textarea>
-
-  <!--<button onclick="makeSVG()">Render as SVG</button>
-  <div id="SVGArea"></div> -->
-</div>
+</body>
 <script type="text/javascript">
 $('#Workflow').addClass("active");
 
-   function close_wf(){
-       window.location = "<?php echo base_url('Workflow');?>";
-      //window.history.back();
-    }
-      document.getElementById('menu-title').style.display ="block";
-      document.getElementById('menu-add').style.display ="none";
-      document.getElementById('title').innerHTML="Create New Workflow";
+function close_wf(){
+  window.location = "<?php echo base_url('Workflow');?>";
+  //window.history.back();
+}
+document.getElementById('menu-title').style.display ="block";
+document.getElementById('menu-add').style.display ="none";
+document.getElementById('title').innerHTML="Create New Workflow";
 
-  </script>
-  <script type="text/javascript">
-    function save_data_wf(){
-       var wf_name = $('input#wf_name').val();
-        var wf_temp = $('textarea#wf_templt').val();
+</script>
+<script type="text/javascript">
+function save_data_wf(){
+  var wf_name = $('input#wf_name').val();
+  var wf_temp = $('textarea#wf_templt').val();
+  seted_url = "<?php echo base_url('/Workflow/save_new_wf');?>";
+  $.ajax({
+    type : 'POST',
+    url : seted_url,
+    data : {wf_name:wf_name, wf_temp:wf_temp},
+    dataType : "JSON",
+    success: function(data) {
 
-      //console.log(wf_name,wf_temp);
-      seted_url = "<?php echo base_url('/Workflow/save_new_wf');?>";
-       $.ajax({
-        type : 'POST',
-        url : seted_url,
-        data : {wf_name:wf_name, wf_temp:wf_temp},
-        dataType : "JSON",
-        success: function(data) {
+      if(data['confirm']==0){
 
-              if(data['confirm']==0){
-
-              }else {
-                window.location = "<?php echo base_url('Workflow');?>"
-                //id = data['confirm'];
-                //$("#SaveButton").css('display','none');
-                //$("#SaveCButton").css('display','inline');
-                //$("#SaveCButton").attr('onclick', 'save_change('+id+')');
-              }
-              //console.log(data['confirm'],id);
-        }
-      });
-    }
-
-    function save_cdata_wf(id){
-        var wf_name = $('input#wf_name').val();
-        var wf_temp = $('textarea#wf_templt').val();
-
-      //console.log(wf_name,wf_temp);
-      if(wf_name!=''){
-          seted_url = "<?php echo base_url('/Workflow/save_change_wf');?>";
-           $.ajax({
-            type : 'POST',
-            url : seted_url,
-            data : {id:id, wf_name:wf_name, wf_temp:wf_temp},
-            dataType : "JSON",
-            success: function(data) {
-
-                  if(data['confirm']==0){
-
-                  }else {
-
-                  }
-                  //console.log(data['confirm'],id);
-            }
-          });
+      }else {
+        window.location = "<?php echo base_url('Workflow');?>"
       }
-
     }
-  </script>
+  });
+}
 
-</body>
+function save_cdata_wf(id){
+  var wf_name = $('input#wf_name').val();
+  var wf_temp = $('textarea#wf_templt').val();
+
+  //console.log(wf_name,wf_temp);
+  if(wf_name!=''){
+    seted_url = "<?php echo base_url('/Workflow/save_change_wf');?>";
+    $.ajax({
+      type : 'POST',
+      url : seted_url,
+      data : {id:id, wf_name:wf_name, wf_temp:wf_temp},
+      dataType : "JSON",
+      success: function(data) {
+
+        if(data['confirm']==0){
+
+        }else {
+
+        }
+      }
+    });
+  }
+
+}
+</script>

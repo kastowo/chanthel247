@@ -17,7 +17,7 @@ echo $username;
     <link rel="stylesheet" href="<?php echo base_url(); ?>assetsnew/css/normalize.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assetsnew/css/ns-default.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assetsnew/css/ns-style-growl.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assetsnew/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assetsnew/plugins/datatables/jquery.dataTables.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assetsnew/plugins/datatables/responsive.dataTables.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assetsnew/plugins/icheck/skins/square/_all.css" rel="stylesheet">
@@ -49,9 +49,36 @@ echo $username;
         </div>
         <div class="create-newitem-footer">
           <button type="button" name="button" class="button-default" onclick="closeContainer()" style="margin-right:20px">Cancel</button>
-          <button type="submit" name="button" class="button-primary create" onclick="closeContainer(); Notifikasi();" id="checkCreateFolder">Create</button>
+          <button type="submit" name="button" class="button-primary create" onclick="closeContainer()" id="checkCreateFolder">Create</button>
         </div>
       </form>
+    </div>
+
+    <!-- For new workflow -->
+    <div class="create-newitem-container" id="containerNewWorkflow">
+      <div class="create-newitem-header">
+        <p>Create New Workflow</p>
+      </div>
+      <div class="create-newitem-content">
+        <!--<form action="<?php echo base_url(); ?>Document/create_parent" method="POST">-->
+          <div class="form-group">
+            <label for="">Workflow Name</label>
+            <input class="form-control" type="text" name="workflow_name" value="" placeholder="Workflow Name" id="workflow-name">
+          </div>
+          <div class="form-group">
+            <label for="">Category</label>
+            <select class="form-control" name="">
+              <option value="" style="padding:10px">Category 1</option>
+              <option value="" style="padding:10px">Category 2</option>
+              <option value="" style="padding:10px">Category 3</option>
+            </select>
+          </div>
+        </div>
+        <div class="create-newitem-footer">
+          <button type="button" name="button" class="button-default" onclick="closeContainer()" style="margin-right:20px">Cancel</button>
+          <button type="submit" name="button" class="button-primary create" onclick="closeContainer(); goToWorkflowDesigner();" id="checkCreateWorkflow">Create</button>
+        </div>
+      <!--</form>-->
     </div>
 
     <!-- For delete -->
@@ -88,7 +115,7 @@ echo $username;
         </div>
         <div class="create-newitem-footer">
           <button type="button" name="button" class="button-default" onclick="closeContainer()" style="margin-right:20px">Cancel</button>
-          <button type="submit" name="button" class="button-primary create" onclick="closeContainer(); Notifikasi();" id="checkRename">Rename</button>
+          <button type="submit" name="button" class="button-primary create" onclick="closeContainer()" id="checkRename">Rename</button>
         </div>
       </form>
     </div>
@@ -294,7 +321,8 @@ echo $username;
                   <div class="menu-container">
                     <ul>
                       <li onclick="toggleContainer('NewFolder')">Folder</li>
-                      <a href="<?php echo base_url('Workflow/create_workflow')?>"><li id="create_wf" onclick="create_workflow()">Workflow</li></a>
+                      <!--<a href="<?php echo base_url('Workflow/create_workflow')?>"><li id="create_wf" onclick="create_workflow()">Workflow</li></a>-->
+                      <li onclick="toggleContainer('NewWorkflow')">Workflow</li>
 		                </ul>
                   </div>
                 </li>
@@ -335,11 +363,16 @@ echo $username;
 <script type="text/javascript" src="<?php echo base_url(); ?>assetsnew/plugins/datatables/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assetsnew/plugins/datatables/js/responsive.dataTables.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assetsnew/plugins/icheck/icheck.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/pdfobject.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assetsnew/js/pdfobject.js"></script>
 <script type="text/javascript" src='<?php echo base_url(); ?>assetsnew/plugins/fullcalendar/lib/moment.min.js'></script>
 <script type="text/javascript" src='<?php echo base_url(); ?>assetsnew/plugins/fullcalendar/fullcalendar.min.js'></script>
 <script type="text/javascript" src='<?php echo base_url(); ?>assetsnew/plugins/fullcalendar/data.js'></script>
 <script type="text/javascript">
+
+//For change the page to workflow designer
+function goToWorkflowDesigner(){
+  window.location = "<?php echo base_url('Workflow/create_workflow')?>"
+};
 
 // For add group
 function addGroups($id, $folder, $name) {
@@ -465,6 +498,14 @@ function toggleContainer(id){
       }
       else{
         $('#checkRename').attr('disabled',true);
+      }
+    }
+    else if (id === "NewWorkflow") {
+      if($('#workflow-name').val().length !=0){
+        $('#checkCreateWorkflow').attr('disabled', false);
+      }
+      else{
+        $('#checkCreateWorkflow').attr('disabled',true);
       }
     }
     else if (id == "AddGroups") {
@@ -623,6 +664,12 @@ $(document).ready(function(){
           $('#checkCreateFolder').attr('disabled', false);
       else
           $('#checkCreateFolder').attr('disabled',true);
+  });
+  $('#workflow-name').keyup(function(){
+      if($(this).val().length !=0)
+          $('#checkCreateWorkflow').attr('disabled', false);
+      else
+          $('#checkCreateWorkflow').attr('disabled',true);
   });
   $('#name').keyup(function(){
       if($(this).val().length !=0)
